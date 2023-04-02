@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Routes, Route, createSearchParams, useSearchParams, useNavigate} from "react-router-dom"
+import {Routes, Route, createSearchParams, useSearchParams, useNavigate, useLocation} from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import 'reactjs-popup/dist/index.css'
 import {fetchMovies} from './data/moviesSlice'
@@ -12,6 +12,7 @@ import YouTubePlayer from './components/YoutubePlayer'
 import './app.scss'
 import {useBoolean} from "./hooks/useBoolean";
 import Modal from "./components/Modal";
+import {useScrollToTop} from "./hooks/useScroll";
 
 const App = () => {
 
@@ -24,10 +25,8 @@ const App = () => {
     const [isModalOpen, setIsModalOpenActions] = useBoolean(false)
     const [isLoadingTrailer, setIsLoadingTrailerActions] = useBoolean(false)
     const navigate = useNavigate()
-
-    const closeCard = () => {
-
-    }
+    const { pathname } = useLocation();
+    useScrollToTop(pathname);
 
     const getSearchResults = (query) => {
         if (query !== '') {
@@ -96,10 +95,9 @@ const App = () => {
             </Modal>
 
             <div className="container">
-
                 <Routes>
                     <Route path="/"
-                           element={<Movies movies={movies} viewTrailer={viewTrailer} closeCard={closeCard}/>}/>
+                           element={<Movies movies={movies.movies?.results ?? []} viewTrailer={viewTrailer}/>}/>
                     <Route path="/starred" element={<Starred viewTrailer={viewTrailer}/>}/>
                     <Route path="/watch-later" element={<WatchLater viewTrailer={viewTrailer}/>}/>
                     <Route path="*" element={<h1 className="not-found">Page Not Found</h1>}/>
