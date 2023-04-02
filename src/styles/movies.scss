@@ -11,6 +11,21 @@
         text-decoration: none;
     }
 
+    .movies {
+        display: grid;
+        justify-items: start;
+        grid-template-columns: repeat(auto-fit, calc(25% - 8px));
+        gap: 8px;
+
+        @media screen and (max-width: 769px) {
+            grid-template-columns: repeat(auto-fit, calc(50% - 8px));
+        }
+
+        @media screen and (max-width: 400px) {
+            grid-template-columns: repeat(auto-fit, 100%);
+        }
+    }
+
     .wrapper {
         padding: 0 6px;
         margin-bottom: 2rem;
