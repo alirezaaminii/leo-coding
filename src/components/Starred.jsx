@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import starredSlice from '../data/starredSlice'
 import {useInfiniteScroll} from "../hooks/useInfiniteScroll";
 import '../styles/starred.scss'
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Movies from "./Movies";
 
 
@@ -21,11 +21,17 @@ const Starred = ({viewTrailer}) => {
         [page, state.starred.starredMovies]
     );
 
+    const [isFetching, setIsFetching] = useInfiniteScroll();
+
     const fetchMoreData = () => {
+        setIsFetching(false)
         setPage(page + 1)
     };
 
-    const [isFetching] = useInfiniteScroll(fetchMoreData);
+    useEffect(() => {
+        if (!isFetching) return;
+        fetchMoreData()
+    }, [isFetching]);
 
     return (
         <div className="starred" data-testid="starred">

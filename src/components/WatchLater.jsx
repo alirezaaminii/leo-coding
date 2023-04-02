@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import watchLaterSlice from '../data/watchLaterSlice'
 import '../styles/starred.scss'
 import {useInfiniteScroll} from "../hooks/useInfiniteScroll";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Movies from "./Movies";
 
 const WatchLater = ({viewTrailer}) => {
@@ -21,11 +21,17 @@ const WatchLater = ({viewTrailer}) => {
         [page, state.watchLater.watchLaterMovies]
     );
 
+    const [isFetching, setIsFetching] = useInfiniteScroll();
+
     const fetchMoreData = () => {
+        setIsFetching(false)
         setPage(page + 1)
     };
 
-    const [isFetching] = useInfiniteScroll(fetchMoreData);
+    useEffect(() => {
+        if (!isFetching) return;
+        fetchMoreData()
+    }, [isFetching]);
 
     return (
         <div className="starred" data-testid="watch-later-div">
