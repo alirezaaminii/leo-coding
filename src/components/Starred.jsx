@@ -23,6 +23,8 @@ const Starred = ({viewTrailer}) => {
             viewTrailer={viewTrailer}
           />
         ))}
+        {/*  Code review (from line 19 to 25 :: I realised that there is a duplicate code here,
+         it's the same code as Movies component and we can reuse it */}
         </div>
 
         <footer className="text-center">

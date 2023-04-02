@@ -32,11 +32,14 @@ const Header = ({ searchMovies }) => {
       <div className="input-group rounded">
         <Link to="/" onClick={(e) => searchMovies('')} className="search-link" >
           <input type="search" data-testid="search-movies"
-            onKeyUp={(e) => searchMovies(e.target.value)} 
-            className="form-control rounded" 
+            onKeyUp={(e) => searchMovies(e.target.value)}
+            // Code review :: I think we can improve UX by having a debounce function
+            // to avoid calling api on each change at the moment, I can suggest to write a hook for it
+            className="form-control rounded"
             placeholder="Search movies..." 
             aria-label="Search movies" 
-            aria-describedby="search-addon" 
+            aria-describedby="search-addon"
+            // Code review :: Don't we should get the search value from parent component to keep our input update?
             />
         </Link>            
       </div>      
