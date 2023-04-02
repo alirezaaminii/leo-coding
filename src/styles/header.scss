@@ -1,6 +1,7 @@
 header {
     position: fixed;
     z-index: 999;
+    // Code review :: I'm not sure why we used the 999 value for z-index, we even can set 2 for zIndex and it will work.
     width: 100%;
     height: 3rem;
     min-height: 50px;
@@ -11,6 +12,7 @@ header {
 
     .input-group {
       float: right;
+      // Code review :: How about using flex instead? it's more maintainable and easy to change
       width: 200px;
       margin: 0.7rem 0 0;
 
